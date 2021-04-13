@@ -1,3 +1,5 @@
+import os
+
 from marshmallow import ValidationError
 from pymongo import MongoClient
 
@@ -8,7 +10,7 @@ class CustomerService:
     def __init__(self):
         self.schema = Customer()
 
-        self.mongodb_uri = 'localhost:27017'
+        self.mongodb_uri = os.getenv('MONGODB_URI') if os.getenv('MONGODB_URI') else 'localhost:27017'
         self.mongodb_name = 'Store'
         self.mongodb_collection = 'customer'
 

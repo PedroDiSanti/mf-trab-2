@@ -1,3 +1,4 @@
+import os
 from uuid import UUID
 
 from pymongo import MongoClient
@@ -11,7 +12,7 @@ class ProductService:
     def __init__(self):
         self.schema = Product()
 
-        self.mongodb_uri = 'localhost:27017'
+        self.mongodb_uri = os.getenv('MONGODB_URI') if os.getenv('MONGODB_URI') else 'localhost:27017'
         self.mongodb_name = 'Store'
         self.mongodb_collection = 'product'
 
