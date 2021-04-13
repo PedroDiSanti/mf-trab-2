@@ -14,7 +14,6 @@ App.mount('/product', product_api)
 App.mount('/customer', customer_api)
 
 
-if os.environ.get('APP_LOCATION') == 'heroku':
-    App.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=True, reloader=True)
-else:
-    App.run(host='0.0.0.0', port=8080, debug=True, reloader=True)
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    App.run(host='0.0.0.0', port=port, debug=True, reloader=True)
