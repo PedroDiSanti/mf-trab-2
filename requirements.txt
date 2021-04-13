@@ -1,0 +1,10 @@
+bottle==0.12.19
+pymongo==3.11.3
+marshmallow==3.10.0
+requests~=2.24.0
+python-dotenv==0.15.0
+pytest==6.2.2
+pytest-cov==2.11.1
+pytest-env==0.6.2
+pytest-mock==3.5.1
+webtest~=2.0.33
