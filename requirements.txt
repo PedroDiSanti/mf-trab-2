@@ -1,4 +1,5 @@
 bottle==0.12.19
+dnspython==1.16.0
 pymongo==3.11.3
 marshmallow==3.10.0
 requests~=2.24.0
