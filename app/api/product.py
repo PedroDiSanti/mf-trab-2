@@ -20,3 +20,11 @@ def create_product():
     except ValidationError as schema_error:
         return ReturnMessages.error_field(schema_error)
 
+
+@product_api.get('/')
+def list_products():
+    try:
+        return ReturnMessages.success_list(product_service.get_all_products())
+    except FileNotFoundError:
+        return ReturnMessages.error_get_product()
+

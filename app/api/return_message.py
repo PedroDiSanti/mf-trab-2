@@ -11,12 +11,16 @@ class ReturnMessages:
         return HTTPResponse({'created_id': str(created_id)}, 201, HEADERS_RESPONSE)
 
     @classmethod
-    def success_get_memo(cls, result_object):
+    def success_get(cls, result_object):
         return HTTPResponse(result_object, 200, HEADERS_RESPONSE)
 
     @classmethod
-    def success_delete_memo(cls):
-        return HTTPResponse(json.dumps({"Message": "The memo was deleted."}), 200, HEADERS_RESPONSE)
+    def success_list(cls, result_object):
+        return HTTPResponse({"objects": json.loads(result_object)}, 200, HEADERS_RESPONSE)
+
+    @classmethod
+    def success_put(cls):
+        return HTTPResponse({"Success": 'The cart was updated.'}, 200, HEADERS_RESPONSE)
 
     @classmethod
     def error_payload(cls):
@@ -27,8 +31,12 @@ class ReturnMessages:
         return HTTPResponse(json.dumps({"Error": "Invalid UUID."}), 422, HEADERS_RESPONSE)
 
     @classmethod
-    def error_get_memo(cls):
-        raise HTTPResponse(json.dumps({"Error": "No memo was found."}), 404, HEADERS_RESPONSE)
+    def error_get_product(cls):
+        raise HTTPResponse(json.dumps({"Error": "No product was found."}), 404, HEADERS_RESPONSE)
+
+    @classmethod
+    def error_get_cart(cls):
+        raise HTTPResponse(json.dumps({"Error": "No cart was found."}), 404, HEADERS_RESPONSE)
 
     @classmethod
     def error_field(cls, error_validate_schema):
@@ -37,7 +45,3 @@ class ReturnMessages:
     @classmethod
     def error_invalid_user_session(cls):
         return HTTPResponse(json.dumps({"Error": "Invalid user session."}), 404, HEADERS_RESPONSE)
-
-    @classmethod
-    def error_delete_memo(cls):
-        return HTTPResponse(json.dumps({"Error": "The memo was not deleted."}), 400, HEADERS_RESPONSE)

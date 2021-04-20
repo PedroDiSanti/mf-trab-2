@@ -29,7 +29,6 @@ class CustomerService:
         customer = self.db_connection.find_one({'$and': [{'email': login}, {'password': password}]})
         if customer:
             return self.schema.dump(customer)
-        raise FileNotFoundError()
 
     def get_if_customer_exists(self, customer):
         customer = self.db_connection.find_one(

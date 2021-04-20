@@ -32,3 +32,9 @@ class ProductService:
         if product:
             return self.schema.dump(product)
         raise FileNotFoundError()
+
+    def get_all_products(self):
+        products = self.db_connection.find({'enabled': True})
+        if products:
+            return self.schema.dumps(products, many=True)
+        raise FileNotFoundError()

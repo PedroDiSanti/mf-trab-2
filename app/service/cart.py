@@ -30,21 +30,25 @@ class CartService:
     def add_product_to_cart(self, customer, product):
         cart = self.db_connection.find_one({'customer_id': UUID(customer.get('_id'))})
         if not cart:
-            raise FileNotFoundError()
+            raise FileNotFoundError
 
         try:
-            self.db_connection.update({'_id': cart.get('_id')}, {"$push": {"products": product}})
+            self.db_connection.update_one({'_id': cart.get('_id')}, {"$push": {"products": product}})
         except ValidationError as validation_error:
             raise validation_error
 
-    def remove_product_to_cart(self, customer, product):
+    def remove_product_from_cart(self, customer, product):
         cart = self.db_connection.find_one({'customer_id': UUID(customer.get('_id'))})
         if not cart:
-            raise FileNotFoundError()
+            raise FileNotFoundError
+
+        result = self.db_connection.find_one({'_id': cart.get('_id')})
+        if result.get('products'):
+            result.get('products').pop(result.get('products').index(product))
+        else:
+            raise FileNotFoundError
 
         try:
-            result = self.db_connection.find_one({'_id': cart.get('_id')})
-            result.get('products').pop(result.get('products').index(product))
-            self.db_connection.update({'_id': cart.get('_id')}, {"$set": {"products": result.get('products')}})
+            self.db_connection.update_one({'_id': cart.get('_id')}, {"$set": {"products": result.get('products')}})
         except ValidationError as validation_error:
             raise validation_error
